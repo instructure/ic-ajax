@@ -51,23 +51,21 @@ App.ApplicationRoute = Ember.Route.extend({
 Simplified Testing
 ------------------
 
-If you add fixtures to `ic.ajax.FIXTURES` it will resolve the promise
-with the fixture matching a url so you can test your app w/o creating
-fake servers with sinon, etc.
+Adding fixtures with `defineFixture` tells ic-ajax to resolve the promise
+with the fixture matching a url instead of making a request. This allows
+you to test your app without creating fake servers with sinon, etc.
 
 Example:
 
 ```js
-ic.ajax.FIXTURES = {
-  'api/v1/courses': {
-    response: [{name: 'basket weaving'}],
-    jqXHR: {},
-    textStatus: 'success'
-  }
-}
+ic.ajax.defineFixture('api/v1/courses', {
+  response: [{name: 'basket weaving'}],
+  jqXHR: {},
+  textStatus: 'success'
+});
 
 ic.ajax('api/v1/courses').then(function(result) {
-  deepEqual(result, ic.ajax.FIXTURES['api/v1/courses']);
+  deepEqual(result, ic.ajax.lookupFixture('api/v1/courses'));
 });
 ```
 

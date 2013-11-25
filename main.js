@@ -23,7 +23,7 @@
     return new Ember.RSVP.Promise(function(resolve, reject) {
 
       // If we have FIXTURES, load from there instead (testing)
-      var fixture = ajax.FIXTURES && ajax.FIXTURES[settings.url];
+      var fixture = ajax.lookupFixture(settings.url);
       if (fixture) {
         return resolve(fixture);
       }
@@ -46,6 +46,15 @@
 
       Ember.$.ajax(settings);
     });
+  };
+
+  ajax.lookupFixture = function(url) {
+    return ajax.FIXTURES && ajax.FIXTURES[url];
+  };
+
+  ajax.defineFixture = function(url, fixture) {
+    ajax.FIXTURES = ajax.FIXTURES || {};
+    ajax.FIXTURES[url] = fixture;
   };
 
   // parses arguments to support `ajax(url, settings)` or `ajax(settings)`
