@@ -1,21 +1,19 @@
 module('ic-ajax');
 
-ic.ajax.FIXTURES = {
-  '/get': {
-    response: { foo: 'bar' },
-    textStatus: 'success',
-    jqXHR: {}
-  }
-};
-
 test('presence', function() {
   ok(ic.ajax, 'ic.ajax is defined');
 });
 
 asyncTest('pulls from fixtures', function() {
+  ic.ajax.defineFixture('/get', {
+    response: { foo: 'bar' },
+    textStatus: 'success',
+    jqXHR: {}
+  });
+
   ic.ajax('/get').then(function(result) {
     start();
-    deepEqual(result, ic.ajax.FIXTURES['/get']);
+    deepEqual(result, ic.ajax.lookupFixture('/get'));
   });
 });
 
