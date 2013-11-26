@@ -108,11 +108,15 @@
     };
   }
 
-  var Component = Ember.Component.extend({
+  ajax.Component = Ember.Component.extend({
     load: function() {
-      var _this = this;
+      var component = this;
+      this.set('is-loading', true);
       ajax(this.get('url')).then(function(result) {
-        _this.set('response', result.response);
+        component.set('is-loading', false);
+        component.set('response', result.response);
+        component.trigger('didLoad');
+        component.sendAction('on-load');
       });
     }.on('didInsertElement')
   });

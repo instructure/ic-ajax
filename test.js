@@ -60,6 +60,25 @@ test('throws if success or error callbacks are used', function() {
   });
 });
 
+asyncTest('component', function() {
+  ic.ajax.defineFixture('/foo', {
+    response: { foo: 'bar' },
+    textStatus: 'success',
+    jqXHR: {}
+  });
+
+  var component = ic.ajax.Component.create({
+    url: '/foo'
+  });
+
+  component.on('didLoad', function() {
+    start();
+    deepEqual(component.get('response'), {foo: 'bar'});
+  });
+
+  component.trigger('didInsertElement');
+});
+
 function fakeServer(method, url, response) {
   var server = sinon.fakeServer.create();
   var data = {foo: 'bar'};
