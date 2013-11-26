@@ -1,11 +1,15 @@
 {
   "name": "ic-ajax",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "authors": [
     "Ryan Florence <rpflorence@gmail.com>"
   ],
   "main": "main.js",
-  "moduleFormat": ["amd", "cjs", "globals"],
+  "moduleFormat": [
+    "amd",
+    "cjs",
+    "globals"
+  ],
   "license": "MIT",
   "ignore": [
     "bower_components",
