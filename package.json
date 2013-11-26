@@ -1,10 +1,11 @@
 {
   "name": "ic-ajax",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "ember friendly $.ajax wrapper",
   "main": "main.js",
   "devDependencies": {
-    "testem": "~0.5.12"
+    "testem": "~0.5.12",
+    "prompt": "~0.2.11"
   },
   "scripts": {
     "test": "./node_modules/.bin/testem ci"
