@@ -20,8 +20,18 @@ Module Support
 --------------
 
 - AMD
+
+  `define(['bower_components/ic-ajax'], function(ajax) {});`
+
 - Node.JS (CJS)
+
+  `var ajax = require('ic-ajax')`
+
 - Globals
+
+  `var ajax = ic.ajax;`
+
+  All instructure canvas stuff lives on the `ic` global.
 
 API
 ---
@@ -36,9 +46,10 @@ Ajax simply wraps `jQuery.ajax` with two exceptions:
 Other than that, use it exactly like `$.ajax`.
 
 ```js
+var ajax = ic.ajax;
 App.ApplicationRoute = Ember.Route.extend({
   model: function() {
-    return ic.ajax('/foo').then(function(result) {
+    return ajax('/foo').then(function(result) {
       // result.response
       // result.textStatus
       // result.jqXHR
