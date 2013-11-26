@@ -1,7 +1,8 @@
 /*!
- * ember-ajax
- * - inspired by discourse ajax: https://github.com/discourse/discourse/blob/master/app/assets/javascripts/discourse/mixins/ajax.js#L19
+ * ic-ajax
+ *
  * - please see license at https://github.com/instructure/ember-ajax
+ * - inspired by discourse ajax: https://github.com/discourse/discourse/blob/master/app/assets/javascripts/discourse/mixins/ajax.js#L19
  */
 
 ;(function(root, factory) {
