@@ -29,7 +29,7 @@
   /*
    * Defines a fixture that will be used instead of an actual ajax
    * request to a given url. This is useful for testing, allowing you to
-   * stub out responses your application will make without requring
+   * stub out responses your application will send without requiring
    * libraries like sinon or mockjax, etc.
    *
    * For example:
@@ -57,7 +57,6 @@
   ajax.lookupFixture = function(url) {
     return ajax.FIXTURES && ajax.FIXTURES[url];
   };
-
 
   function makePromise(settings) {
     return new Ember.RSVP.Promise(function(resolve, reject) {
