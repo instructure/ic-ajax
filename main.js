@@ -108,6 +108,22 @@
     };
   }
 
+  var Component = Ember.Component.extend({
+    load: function() {
+      var _this = this;
+      ajax(this.get('url')).then(function(result) {
+        _this.set('response', result.response);
+      });
+    }.on('didInsertElement')
+  });
+
+  Ember.Application.initializer({
+    name: 'ic-ajax',
+    initialize: function(container) {
+      container.register('component:ic-ajax', Component);
+    }
+  });
+
   return ajax;
 
 }));
