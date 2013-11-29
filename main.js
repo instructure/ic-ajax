@@ -1,7 +1,8 @@
 /*!
  * ic-ajax
  *
- * - please see license at https://github.com/instructure/ember-ajax
+ * - (c) 2013 Instructure, Inc
+ * - please see license at https://github.com/instructure/ic-ajax/blob/master/LICENSE
  * - inspired by discourse ajax: https://github.com/discourse/discourse/blob/master/app/assets/javascripts/discourse/mixins/ajax.js#L19
  */
 
@@ -18,11 +19,22 @@
 
   /*
    * jQuery.ajax wrapper, supports the same signature except providing
-   * `success` and `error` handlers will throw an error (use promises
-   * instead).
+   * `success` and `error` handlers will throw an error (use promises instead)
+   * and it resolves only the response (no access to jqXHR or textStatus).
    */
 
   var ajax = function() {
+    return ajax.raw.apply(null, arguments).then(function(result) {
+      return result.response;
+    });
+  };
+
+  /*
+   * Same as `ajax` except it resolves an object with `{response, textStatus,
+   * jqXHR}`, useful if you need access to the jqXHR object for headers, etc.
+   */
+
+  ajax.raw = function() {
     return makePromise(parseArgs.apply(null, arguments));
   };
 

@@ -11,15 +11,28 @@ asyncTest('pulls from fixtures', function() {
     jqXHR: {}
   });
 
-  ic.ajax('/get').then(function(result) {
+  ic.ajax.raw('/get').then(function(result) {
     start();
     deepEqual(result, ic.ajax.lookupFixture('/get'));
   });
 });
 
+asyncTest('resolves the response only when not using raw', function() {
+  ic.ajax.defineFixture('/get', {
+    response: { foo: 'bar' },
+    textStatus: 'success',
+    jqXHR: {}
+  });
+
+  ic.ajax('/get').then(function(result) {
+    start();
+    deepEqual(result, ic.ajax.lookupFixture('/get').response);
+  });
+});
+
 asyncTest('url as only argument', function() {
   var server = fakeServer('GET', '/foo', {foo: 'bar'});
-  ic.ajax('/foo').then(function(result) {
+  ic.ajax.raw('/foo').then(function(result) {
     start();
     deepEqual(result.response, {foo: 'bar'});
   });
@@ -29,7 +42,7 @@ asyncTest('url as only argument', function() {
 
 asyncTest('settings as only argument', function() {
   var server = fakeServer('GET', '/foo', {foo: 'bar'});
-  ic.ajax({url: '/foo'}).then(function(result) {
+  ic.ajax.raw({url: '/foo'}).then(function(result) {
     start();
     deepEqual(result.response, {foo: 'bar'});
   });
@@ -39,7 +52,7 @@ asyncTest('settings as only argument', function() {
 
 asyncTest('url and settings arguments', function() {
   var server = fakeServer('GET', '/foo?baz=qux', {foo: 'bar'});
-  ic.ajax('/foo', {data: {baz: 'qux'}}).then(function(result) {
+  ic.ajax.raw('/foo', {data: {baz: 'qux'}}).then(function(result) {
     start();
     deepEqual(result.response, {foo: 'bar'});
   });

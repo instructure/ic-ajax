@@ -39,9 +39,10 @@ API
 Ajax simply wraps `jQuery.ajax` with two exceptions:
 
 - success and error callbacks are not supported
-- does not resolve three arguments like $.ajax but instead an object
-  with the three "arguments" as keys (real promises only resolve a
-  single value and ic-ajax uses RSVP).
+- does not resolve three arguments like $.ajax (real promises only
+  resolve a single value). `ic.ajax` only resolves the response data
+  from the request, while ic.ajax.raw resolves an object with the three
+  "arguments" as keys if you need them.
 
 Other than that, use it exactly like `$.ajax`.
 
@@ -49,14 +50,16 @@ Other than that, use it exactly like `$.ajax`.
 var ajax = ic.ajax;
 App.ApplicationRoute = Ember.Route.extend({
   model: function() {
-    return ajax('/foo').then(function(result) {
-      // result.response
-      // result.textStatus
-      // result.jqXHR
-      return result.response;
-    });
+    return ajax('/foo');
   }
 }
+
+// if you need access to the jqXHR or textStatus, use raw
+ajax.raw('/foo').then(function(result) {
+  // result.response
+  // result.textStatus
+  // result.jqXHR
+});
 ```
 
 Simplified Testing
@@ -76,12 +79,14 @@ ic.ajax.defineFixture('api/v1/courses', {
 });
 
 ic.ajax('api/v1/courses').then(function(result) {
-  deepEqual(result, ic.ajax.lookupFixture('api/v1/courses'));
+  deepEqual(result, ic.ajax.lookupFixture('api/v1/courses').response);
 });
 ```
 
 Contributing
 ------------
+
+Install dependencies and run tests with the following:
 
 ```sh
 bower install
