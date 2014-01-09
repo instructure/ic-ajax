@@ -12,6 +12,8 @@ Installation
 
 `bower install ic-ajax`
 
+... or ...
+
 `npm install ic-ajax`
 
 ... or download `main.js` and include it into your app however you want.
