@@ -73,6 +73,22 @@ test('throws if success or error callbacks are used', function() {
   });
 });
 
+if (parseFloat(Ember.VERSION) >= 1.3) {
+  function promiseLabelOf(promise) { return promise._label; }
+
+  test('labels the promise', function() {
+    var promise = ic.ajax('/foo');
+
+    equal(promiseLabelOf(promise), 'ic-ajax: unwrap raw ajax response', 'promise is labeled');
+  });
+
+  test('labels the promise', function() {
+    var promise = ic.ajax.raw('/foo');
+
+    equal(promiseLabelOf(promise), 'ic-ajax: GET to /foo', 'promise is labeled');
+  });
+}
+
 function fakeServer(method, url, response) {
   var server = sinon.fakeServer.create();
   var data = {foo: 'bar'};

@@ -26,7 +26,7 @@
   var ajax = function ajax() {
     return ajax.raw.apply(null, arguments).then(function(result) {
       return result.response;
-    });
+    }, null, 'ic-ajax: unwrap raw ajax response');
   };
 
   /*
@@ -79,7 +79,7 @@
       settings.success = makeSuccess(resolve, reject);
       settings.error = makeError(resolve, reject);
       Ember.$.ajax(settings);
-    });
+    }, 'ic-ajax: ' + (settings.type || 'GET') + ' to ' + settings.url);
   };
 
   function parseArgs() {
