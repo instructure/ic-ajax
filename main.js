@@ -23,7 +23,7 @@
    * and it resolves only the response (no access to jqXHR or textStatus).
    */
 
-  var ajax = function() {
+  var ajax = function ajax() {
     return ajax.raw.apply(null, arguments).then(function(result) {
       return result.response;
     });
@@ -34,7 +34,7 @@
    * jqXHR}`, useful if you need access to the jqXHR object for headers, etc.
    */
 
-  ajax.raw = function() {
+  ajax.raw = function ajaxRaw() {
     return makePromise(parseArgs.apply(null, arguments));
   };
 
