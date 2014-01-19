@@ -76,8 +76,8 @@
       if (fixture) {
         return Ember.run(null, resolve, fixture);
       }
-      settings.success = makeSuccess(resolve, reject);
-      settings.error = makeError(resolve, reject);
+      settings.success = makeSuccess(resolve);
+      settings.error = makeError(reject);
       Ember.$.ajax(settings);
     }, 'ic-ajax: ' + (settings.type || 'GET') + ' to ' + settings.url);
   };
@@ -100,7 +100,7 @@
     return settings;
   }
 
-  function makeSuccess(resolve, reject) {
+  function makeSuccess(resolve) {
     return function(response, textStatus, jqXHR) {
       Ember.run(null, resolve, {
         response: response,
@@ -110,7 +110,7 @@
     }
   }
 
-  function makeError(resolve, reject) {
+  function makeError(reject) {
     return function(jqXHR, textStatus, errorThrown) {
       Ember.run(null, reject, {
         jqXHR: jqXHR,
