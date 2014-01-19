@@ -23,7 +23,7 @@
    * and it resolves only the response (no access to jqXHR or textStatus).
    */
 
-  var ajax = function ajax() {
+  function ajax() {
     return ajax.raw.apply(null, arguments).then(function(result) {
       return result.response;
     }, null, 'ic-ajax: unwrap raw ajax response');
