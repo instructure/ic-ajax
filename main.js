@@ -95,7 +95,7 @@
       settings.url = arguments[0];
     }
     if (settings.success || settings.error) {
-      throw new Error("ajax should use promises, received 'success' or 'error' callback");
+      throw new Ember.Error("ajax should use promises, received 'success' or 'error' callback");
     }
     return settings;
   }
