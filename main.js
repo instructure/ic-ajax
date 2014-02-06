@@ -74,7 +74,11 @@
     return new Ember.RSVP.Promise(function(resolve, reject) {
       var fixture = ajax.lookupFixture(settings.url);
       if (fixture) {
-        return Ember.run(null, resolve, fixture);
+        if (fixture.textStatus === 'success') {
+          return Ember.run(null, resolve, fixture);
+        } else {
+          return Ember.run(null, reject, fixture);
+        }
       }
       settings.success = makeSuccess(resolve);
       settings.error = makeError(reject);
