@@ -17,6 +17,19 @@ asyncTest('pulls from fixtures', function() {
   });
 });
 
+asyncTest('rejects the promise when the textStatus of the fixture is not success', function() {
+  ic.ajax.defineFixture('/post', {
+    errorThrown: 'Unprocessable Entity',
+    textStatus: 'error',
+    jqXHR: {}
+  });
+
+  start();
+  ic.ajax.raw('/post').then(null, function(reason) {
+    deepEqual(reason, ic.ajax.lookupFixture('/post'));
+  });
+});
+
 asyncTest('resolves the response only when not using raw', function() {
   ic.ajax.defineFixture('/get', {
     response: { foo: 'bar' },
