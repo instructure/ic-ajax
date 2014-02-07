@@ -85,6 +85,8 @@ ic.ajax('api/v1/courses').then(function(result) {
 });
 ```
 
+To test failure paths, set the `textStatus` to anything but `success`.
+
 Contributing
 ------------
 
