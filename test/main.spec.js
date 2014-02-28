@@ -37,7 +37,7 @@ asyncTest('resolves the response only when not using raw', function() {
     jqXHR: {}
   });
 
-  ic.ajax('/get').then(function(result) {
+  ic.ajax.request('/get').then(function(result) {
     start();
     deepEqual(result, ic.ajax.lookupFixture('/get').response);
   });
@@ -87,17 +87,17 @@ test('throws if success or error callbacks are used', function() {
 });
 
 if (parseFloat(Ember.VERSION) >= 1.3) {
-  function promiseLabelOf(promise) { return promise._label; }
+  function promiseLabelOf(promise) {
+    return promise._label;
+  }
 
   test('labels the promise', function() {
-    var promise = ic.ajax('/foo');
-
+    var promise = ic.ajax.request('/foo');
     equal(promiseLabelOf(promise), 'ic-ajax: unwrap raw ajax response', 'promise is labeled');
   });
 
   test('labels the promise', function() {
     var promise = ic.ajax.raw('/foo');
-
     equal(promiseLabelOf(promise), 'ic-ajax: GET to /foo', 'promise is labeled');
   });
 }
