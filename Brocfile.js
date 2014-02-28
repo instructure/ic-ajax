@@ -4,8 +4,7 @@ module.exports = function(broccoli) {
     packageName: 'ic-ajax',
     main: 'main',
     shim: {
-      'ember': 'Ember',
-      'handlebars': 'Handlebars'
+      'ember': 'Ember'
     }
   });
 };
