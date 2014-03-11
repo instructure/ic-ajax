@@ -73,6 +73,24 @@ asyncTest('url and settings arguments', function() {
   server.restore();
 });
 
+asyncTest('the fixture is unaffected by external change', function() {
+  var resource = {foo: 'bar'};
+
+  ic.ajax.defineFixture('/foo', {
+    response: {resource: resource},
+    textStatus: 'success',
+    jqXHR: {}
+  });
+
+  resource.foo = 'baz';
+
+  ic.ajax.request('/foo').then(function(result) {
+      start();
+      deepEqual(result.resource.foo, 'bar');
+    }
+  )
+});
+
 test('throws if success or error callbacks are used', function() {
   var k = function() {};
   throws(function() {
