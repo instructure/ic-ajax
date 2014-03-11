@@ -68,6 +68,15 @@ ajax.raw('/foo').then(function(result) {
 });
 ```
 
+Ember Data
+------------------
+
+By default, if Ember Data is on the page, ic-ajax will override the
+`RESTAdapter`'s `ajax` method to use ic-ajax instead of jQuery's ajax.
+
+To opt out of the behavior, you can set `ic.ajax.request.OVERRIDE_REST_ADAPTER = false`
+after loading ic-ajax.
+
 Simplified Testing
 ------------------
 
