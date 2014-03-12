@@ -27,7 +27,7 @@ define("ic-ajax",
     __exports__.request = request;__exports__["default"] = request;
 
     /*
-     * Same as `ajax` except it resolves an object with `{response, textStatus,
+     * Same as `request` except it resolves an object with `{response, textStatus,
      * jqXHR}`, useful if you need access to the jqXHR object for headers, etc.
      */
 
@@ -56,7 +56,7 @@ define("ic-ajax",
      */
 
     function defineFixture(url, fixture) {
-      __fixtures__[url] = fixture;
+      __fixtures__[url] = JSON.parse(JSON.stringify(fixture));
     }
 
     __exports__.defineFixture = defineFixture;/*

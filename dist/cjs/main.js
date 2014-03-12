@@ -24,7 +24,7 @@ function request() {
 exports.request = request;exports["default"] = request;
 
 /*
- * Same as `ajax` except it resolves an object with `{response, textStatus,
+ * Same as `request` except it resolves an object with `{response, textStatus,
  * jqXHR}`, useful if you need access to the jqXHR object for headers, etc.
  */
 
@@ -53,7 +53,7 @@ exports.__fixtures__ = __fixtures__;
  */
 
 function defineFixture(url, fixture) {
-  __fixtures__[url] = fixture;
+  __fixtures__[url] = JSON.parse(JSON.stringify(fixture));
 }
 
 exports.defineFixture = defineFixture;/*

@@ -71,6 +71,12 @@ ajax.raw('/foo').then(function(result) {
 Simplified Testing
 ------------------
 
+In order to test newly added code you must rebuild the distribution.
+
+```bash
+broccoli build dist
+```
+
 Adding fixtures with `defineFixture` tells ic-ajax to resolve the promise
 with the fixture matching a url instead of making a request. This allows
 you to test your app without creating fake servers with sinon, etc.
@@ -90,6 +96,7 @@ ic.ajax.request('api/v1/courses').then(function(result) {
 ```
 
 To test failure paths, set the `textStatus` to anything but `success`.
+
 
 Contributing
 ------------
