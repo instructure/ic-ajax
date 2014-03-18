@@ -24,7 +24,9 @@ define("ic-ajax",
       }, null, 'ic-ajax: unwrap raw ajax response');
     }
 
-    __exports__.request = request;__exports__["default"] = request;
+    __exports__.request = request;request.OVERRIDE_REST_ADAPTER = true;
+
+    __exports__["default"] = request;
 
     /*
      * Same as `request` except it resolves an object with `{response, textStatus,
@@ -122,4 +124,21 @@ define("ic-ajax",
         });
       };
     }
+
+    Ember.onLoad('Ember.Application', function(Application){
+      Application.initializer({
+        name: 'ic-ajax_REST_Adapter',
+        after: 'store',
+        initialize: function(container, application){
+          if (DS && request.OVERRIDE_REST_ADAPTER) {
+            DS.RESTAdapter.reopen({
+              ajax: function(url, type, options){
+                options = this.ajaxOptions(url, type, options);
+                return request(options);
+              }
+            });
+          }
+        }
+      });
+    });
   });
