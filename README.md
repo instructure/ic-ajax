@@ -117,6 +117,12 @@ npm install
 npm test
 ```
 
+For those of you with release privileges:
+
+```sh
+npm run-script release
+```
+
 Special Thanks
 --------------
 
