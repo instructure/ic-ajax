@@ -129,12 +129,14 @@ if (typeof window.DS !== 'undefined'){
       name: 'ic-ajax_REST_Adapter',
       after: 'store',
       initialize: function(container, application){
-        DS.RESTAdapter.reopen({
-          ajax: function(url, type, options){
-            options = this.ajaxOptions(url, type, options);
-            return request(options);
-          }
-        });
+        if (request.OVERRIDE_REST_ADAPTER) {
+          DS.RESTAdapter.reopen({
+            ajax: function(url, type, options){
+              options = this.ajaxOptions(url, type, options);
+              return request(options);
+            }
+          });
+        }
       }
     });
   });
