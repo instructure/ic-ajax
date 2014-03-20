@@ -125,12 +125,12 @@ define(
       };
     }
 
-    Ember.onLoad('Ember.Application', function(Application){
-      Application.initializer({
-        name: 'ic-ajax_REST_Adapter',
-        after: 'store',
-        initialize: function(container, application){
-          if (DS && request.OVERRIDE_REST_ADAPTER) {
+    if (typeof window.DS !== 'undefined'){
+      Ember.onLoad('Ember.Application', function(Application){
+        Application.initializer({
+          name: 'ic-ajax_REST_Adapter',
+          after: 'store',
+          initialize: function(container, application){
             DS.RESTAdapter.reopen({
               ajax: function(url, type, options){
                 options = this.ajaxOptions(url, type, options);
@@ -138,7 +138,7 @@ define(
               }
             });
           }
-        }
+        });
       });
-    });
+    }
   });
