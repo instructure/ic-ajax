@@ -22,9 +22,7 @@ function request() {
   }, null, 'ic-ajax: unwrap raw ajax response');
 }
 
-exports.request = request;request.OVERRIDE_REST_ADAPTER = true;
-
-exports["default"] = request;
+exports.request = request;exports["default"] = request;
 
 /*
  * Same as `request` except it resolves an object with `{response, textStatus,
@@ -121,25 +119,6 @@ function makeError(reject) {
       errorThrown: errorThrown
     });
   };
-}
-
-if (typeof window.DS !== 'undefined'){
-  Ember.onLoad('Ember.Application', function(Application){
-    Application.initializer({
-      name: 'ic-ajax_REST_Adapter',
-      after: 'store',
-      initialize: function(container, application){
-        if (request.OVERRIDE_REST_ADAPTER) {
-          DS.RESTAdapter.reopen({
-            ajax: function(url, type, options){
-              options = this.ajaxOptions(url, type, options);
-              return request(options);
-            }
-          });
-        }
-      }
-    });
-  });
 }
 },{}]},{},[1])
 (1)
