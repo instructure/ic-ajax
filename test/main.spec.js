@@ -91,6 +91,21 @@ asyncTest('the fixture is unaffected by external change', function() {
   )
 });
 
+asyncTest('the fixture jqXHR survives the response copy', function() {
+
+  ic.ajax.defineFixture('/foo', {
+    response: {foo: 'bar'},
+    textStatus: 'success',
+    jqXHR: { getResponseHeader: function(a) { return a; } }
+  });
+
+  ic.ajax.raw('/foo').then(function(result) {
+      start();
+      equal(result.jqXHR.getResponseHeader('foo'), 'foo');
+    }
+  )
+});
+
 test('throws if success or error callbacks are used', function() {
   var k = function() {};
   throws(function() {
