@@ -56,7 +56,10 @@ define("ic-ajax",
      */
 
     function defineFixture(url, fixture) {
-      __fixtures__[url] = JSON.parse(JSON.stringify(fixture));
+      if (fixture.response) {
+        fixture.response = JSON.parse(JSON.stringify(fixture.response));
+      }
+      __fixtures__[url] = fixture;
     }
 
     __exports__.defineFixture = defineFixture;/*
@@ -73,7 +76,7 @@ define("ic-ajax",
       return new Ember.RSVP.Promise(function(resolve, reject) {
         var fixture = lookupFixture(settings.url);
         if (fixture) {
-          if (fixture.textStatus === 'success') {
+          if (fixture.textStatus === 'success' || fixture.textStatus == null) {
             return Ember.run(null, resolve, fixture);
           } else {
             return Ember.run(null, reject, fixture);
