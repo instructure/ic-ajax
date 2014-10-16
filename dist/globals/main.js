@@ -75,9 +75,9 @@ exports.lookupFixture = lookupFixture;function makePromise(settings) {
     var fixture = lookupFixture(settings.url);
     if (fixture) {
       if (fixture.textStatus === 'success' || fixture.textStatus == null) {
-        return Ember.run(null, resolve, fixture);
+        return Ember.run.later(null, resolve, fixture);
       } else {
-        return Ember.run(null, reject, fixture);
+        return Ember.run.later(null, reject, fixture);
       }
     }
     settings.success = makeSuccess(resolve);
