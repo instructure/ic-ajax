@@ -1,6 +1,6 @@
 {
   "name": "ic-ajax",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "ember friendly $.ajax wrapper",
   "main": "dist/cjs/main.js",
   "devDependencies": {
